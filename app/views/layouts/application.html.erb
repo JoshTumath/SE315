@@ -1,14 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-gb">
 <head>
+  <meta charset="utf-8">
   <title>Maf</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <header>
+    <h1>My Alcohol-Free Wine</h1>
+    <nav>
+      <ul>
+        <li><%= link_to 'Home', controller: 'welcome' %></li>
+        <li><%= link_to 'Wine selection', controller: 'wines' %></li>
+        <li><a>Login</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<%= yield %>
+  <main>
+    <%= yield %>
+  </main>
+
+  <footer>
+    <p>&copy; 2015 Josh Tumath</p>
+  </footer>
 
 </body>
 </html>

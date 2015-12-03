@@ -5,11 +5,14 @@
     <th>Title</th>
     <th>Long description</th>
   </tr>
- 
-  <% @wines.each do |wine| %>
+ <% if @wines.each do |wine| %>
     <tr>
       <td><%= wine.title %></td>
       <td><%= wine.longdesc %></td>
+    </tr>
+  <% end.empty? %>
+    <tr>
+      <td>No wines</td>
     </tr>
   <% end %>
 </table>

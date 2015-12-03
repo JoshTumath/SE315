@@ -1,3 +1,84 @@
 // Place all the styles related to the welcome controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$bg-color: #eee;
+$content-bg-color: white;
+$primary-color: #7e6241;
+$page-width: 960px;
+
+@mixin float-contain {
+  ::after {
+    clear: both;
+    content: '';
+    display: block;
+  }
+}
+
+body {
+  background: $bg-color;
+  font-family: sans-serif;
+  margin: 0;
+}
+
+header {
+  color: white;
+
+  h1 {
+    background: image-url('header-bg.jpg') center no-repeat black;
+    background-size: cover;
+    font-size: 3rem;
+    height: 16rem;
+    line-height: 16rem;
+    margin: 0;
+    text-align: center;
+  }
+
+  nav {
+    @include float-contain;
+
+    background: $primary-color;
+    margin: auto;
+    width: $page-width;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    display: block;
+    float: left;
+
+    & + li {
+      border-left: thin solid $content-bg-color;
+    }
+  }
+
+  a {
+    color: inherit;
+    display: block;
+    font-size: 1.25rem;
+    line-height: 2em;
+    padding: 0 2em;
+    text-decoration: inherit;
+  }
+}
+
+main,
+footer {
+  box-sizing: border-box;
+  margin: auto;
+  padding: 2rem;
+  width: $page-width;
+}
+
+main {
+  background: $content-bg-color;
+}
+
+footer {
+  background: $primary-color;
+  color: white;
+}
