@@ -5,3 +5,12 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Supplier.create [
+  {
+    name: 'Borrisons Winaries',
+    url: 'http://joshtumath.uk/supplier1.json'
+  }, {
+    name: 'Lidlainsburys',
+    url: 'http://joshtumath.uk/supplier2.json'
+  }
+]
