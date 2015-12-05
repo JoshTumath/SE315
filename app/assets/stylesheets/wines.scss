@@ -1,3 +1,60 @@
 // Place all the styles related to the wines controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@mixin float-contain {
+  &::after {
+    clear: both;
+    content: '';
+    display: block;
+  }
+}
+
+.wines {
+  @include float-contain;
+
+  padding: 0;
+
+  li {
+    display: block;
+    float: left;
+    width: 33%;
+  }
+
+  a {
+    background: #efefef;
+    color: inherit;
+    display: block;
+    padding: 1rem;
+    text-decoration: inherit;
+  }
+
+  h1 {
+    font-size: 1.25rem;
+    margin: 0;
+    text-align: center;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.col-container {
+  @include float-contain;
+}
+
+.col {
+  float: left;
+  width: 49%;
+
+  + .col {
+    float: right;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+  }
+}

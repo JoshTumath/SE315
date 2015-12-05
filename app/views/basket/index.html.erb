@@ -1,0 +1,34 @@
+<section>
+  <h1>Basket</h1>
+
+  <% if !@basket.nil? and !@basket.empty? %>
+    <table>
+      <thead>
+        <tr>
+          <th>Wine</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="2">Total</td>
+          <td><% """@total TODO""" %></td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% @basket.each do |wine_id, quantity| %>
+          <% wine = Wine.find(wine_id) %>
+
+          <tr>
+            <td><%= wine.title %></td>
+            <td><%= quantity %></td>
+            <td><%= format '%.2f', wine.price %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>There is nothing in your basket.</p>
+  <% end %>
+</section>

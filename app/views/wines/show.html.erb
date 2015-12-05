@@ -1,11 +1,40 @@
-<p>
-  <strong>Title:</strong>
-  <%= @wine.title %>
-</p>
- 
-<p>
-  <strong>Description:</strong>
-  <%= @wine.longdesc %>
-</p>
+<article class="col-container">
+  <h1><%= @wine.title %></h1>
+
+  <div class="col">
+    <img src="images/wines/<%= @wine.upc %>.jpg" alt="">
+
+    <p>£<%= format '%.2f', @wine.price %></p>
+  </div>
+
+  <div class="col">
+    <dl>
+      <dt>Country of origin</dt>
+      <dd><%= @wine.country %></dd>
+
+      <dt>Grape type</dt>
+      <dd><%= @wine.grape_type %></dd>
+
+      <dt>Vegetarian</dt>
+      <dd><%= @wine.vegetarian %></dd>
+
+      <dt>Bottle size</dt>
+      <dd><%= @wine.size %> ml</dd>
+
+      <dt>Supplier</dt>
+      <dd><%= @wine.supplier %></dd>
+    </dl>
+
+    <%= form_for :basket, url: {controller: 'basket', action: 'create'} do |form| %>
+      <%= hidden_field_tag 'basket[wine]', @wine.id %>
+
+      <%= form.label :quantity, 'Quantity:' %>
+      <%= form.number_field :quantity, value: 1, min: 1 %>
+      <%= form.submit 'Add to basket' %>
+    <% end %>
+
+    <p><%= @wine.description %></p>
+  </div>
+</article>
 
 <%= link_to 'Back', wines_path %>

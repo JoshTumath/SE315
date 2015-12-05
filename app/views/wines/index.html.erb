@@ -1,18 +1,24 @@
 <h1>Listing wines</h1>
- 
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Long description</th>
-  </tr>
- <% if @wines.each do |wine| %>
-    <tr>
-      <td><%= wine.title %></td>
-      <td><%= wine.longdesc %></td>
-    </tr>
-  <% end.empty? %>
-    <tr>
-      <td>No wines</td>
-    </tr>
+
+<% if @wines.present? %>
+<ul class="wines">
+  <% @wines.each do |wine| %>
+  <li>
+    <article>
+      <a href="<%= wine_path wine %>">
+        <h1><%= wine.title %></h1>
+        <img src="images/wines/<%= wine.upc %>.jpg" alt="">
+
+        <p class="price">£<%= format "%.2f", wine.price %></p>
+        <p><%= wine.size %> ml</p>
+        <p class="supplier"><%= wine.supplier %></p>
+      </a>
+    </article>
+  </li>
   <% end %>
-</table>
+</ul>
+<% elsif params[:search] %>
+  <p>There are no wines that match your search.</p>
+<% else %>
+  <p>There are no wines available at the moment. Please check back later.</p>
+<% end %>

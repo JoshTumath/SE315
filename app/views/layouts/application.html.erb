@@ -2,7 +2,7 @@
 <html lang="en-gb">
 <head>
   <meta charset="utf-8">
-  <title>Maf</title>
+  <title>My Alcohol-Free Wine</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -17,9 +17,11 @@
         <li><a>Login</a></li>
       </ul>
 
-      <form>
-        <input type="search">
-      </form>
+      <%= form_tag wines_path, method: "get" do %>
+        <%= label_tag :search, "Search:" %>
+        <%= text_field_tag :search, params[:search] %>
+        <%= submit_tag "Go" %>
+      <% end %>
     </nav>
   </header>
 

@@ -2,7 +2,14 @@ class WinesController < ApplicationController
   require 'rest-client'
 
   def index
-    @wines = Wine.all
+    #XXX: Temporary until this can be added to a cron or scheduler
+    SyncWithSuppliersJob.perform_now
+
+    if params[:search]
+      @wines = Wine.search(params[:search])
+    else
+      @wines = Wine.all
+    end
   end
 
   def show

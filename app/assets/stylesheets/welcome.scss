@@ -8,7 +8,7 @@ $primary-color: #7e6241;
 $page-width: 960px;
 
 @mixin float-contain {
-  ::after {
+  &::after {
     clear: both;
     content: '';
     display: block;
@@ -51,7 +51,7 @@ header {
     display: block;
     float: left;
 
-    & + li {
+    + li {
       border-left: thin solid $content-bg-color;
     }
   }

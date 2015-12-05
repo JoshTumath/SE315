@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  resources :wines, except: [:new, :edit, :update, :destroy]
+  resources :wines, only: [:index, :show]
+  resources :basket, except: [:new, :edit, :show]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

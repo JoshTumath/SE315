@@ -49,6 +49,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
+    data_uri (0.1.0)
     debug_inspector (0.0.2)
     devise (3.5.2)
       bcrypt (~> 3.0)
@@ -170,6 +171,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
   coffee-script-source (~> 1.8.0)
+  data_uri (~> 0.1.0)
   devise
   jbuilder (~> 2.0)
   jquery-rails
