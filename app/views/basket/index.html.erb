@@ -8,6 +8,7 @@
           <th>Wine</th>
           <th>Quantity</th>
           <th>Price</th>
+          <th></th>
         </tr>
       </thead>
       <tfoot>
@@ -23,12 +24,19 @@
           <tr>
             <td><%= wine.title %></td>
             <td><%= quantity %></td>
-            <td><%= format '%.2f', wine.price %></td>
+            <td>£<%= format '%.2f', wine.price %></td>
+            <td>
+              <%= link_to "Delete", basket_destroy_path, method: :delete %>
+            </td>
           </tr>
         <% end %>
       </tbody>
     </table>
   <% else %>
     <p>There is nothing in your basket.</p>
+  <% end %>
+
+  <%= form_for :orders, url: {controller: 'checkout', action: 'create'} do |form| %>
+    <p><%= form.submit 'Checkout' %></p>
   <% end %>
 </section>

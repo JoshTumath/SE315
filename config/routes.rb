@@ -6,7 +6,13 @@ Rails.application.routes.draw do
   get 'welcome/index'
 
   resources :wines, only: [:index, :show]
-  resources :basket, except: [:new, :edit, :show]
+  resources :basket, only: [:index, :create, :update, :destroy]
+  resources :checkout, only: [:create]
+
+  # XXX: For some reason, :destroy in the resources call above throws an error
+  # when the destroy action is linked to in a view file. This explicit reference
+  # to destroy fixes that.
+  delete 'basket' => 'basket#destroy', :as => :basket_destroy
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

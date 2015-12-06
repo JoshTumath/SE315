@@ -17,9 +17,9 @@ class BasketController < ApplicationController
 
   def destroy
     if params[:wine]
-      #Basket.delete params[:wine]
+      session[:basket].delete params[:wine]
     else
-      #Basket.clear
+      session[:basket].clear
     end
 
     redirect_to basket_index_path

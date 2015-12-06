@@ -5,7 +5,7 @@ class SyncWithSuppliersJob < ActiveJob::Base
   queue_as :default
 
   def perform(*args)
-    #TODO: Abort if it's been less than 15 minutes since the last check
+    #TODO: Abort if it's been less than 2 minutes since the last check
 
     # Build up a list of the cheapest wines from all of the suppliers
     extract_cheapest_wines(collate_all_supplier_wines).each do |upc, wine|
@@ -15,7 +15,8 @@ class SyncWithSuppliersJob < ActiveJob::Base
 
   private
   ##
-  # Return all of the suppliers' wines in an array
+  # Request all of the stock of each supplier and return all of the suppliers'
+  # wines in an array
   def collate_all_supplier_wines
     suppliers = []
 
@@ -26,7 +27,7 @@ class SyncWithSuppliersJob < ActiveJob::Base
         when 200
           json = JSON.parse response.body, symbolize_names: true
 
-          suppliers << json[:data][:wines]
+          suppliers << add_supplier_id_to_wines(supplier.id, json[:data][:wines])
         else
           #TODO: log an error
           print 'error oh nooooo'
@@ -35,6 +36,13 @@ class SyncWithSuppliersJob < ActiveJob::Base
     end
 
     suppliers
+  end
+
+  def add_supplier_id_to_wines(supplier_id, wines)
+    wines.map do |wine|
+      wine[:supplier] = Supplier.find(supplier_id)
+      wine
+    end
   end
 
   ##

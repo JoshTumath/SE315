@@ -22,7 +22,7 @@
       <dd><%= @wine.size %> ml</dd>
 
       <dt>Supplier</dt>
-      <dd><%= @wine.supplier %></dd>
+      <dd><%= @wine.supplier.name %></dd>
     </dl>
 
     <%= form_for :basket, url: {controller: 'basket', action: 'create'} do |form| %>
