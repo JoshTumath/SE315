@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  devise_for :customers, controllers: {
+    registrations: 'customers/registrations'
+  }
+
+  get 'welcome/index'
+
   resources :wines, only: [:index, :show]
   resources :basket, except: [:new, :edit, :show]
 
