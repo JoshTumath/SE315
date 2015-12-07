@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$page-width: 960px;
+
 @mixin float-contain {
   &::after {
     clear: both;
@@ -17,8 +19,6 @@
 
   li {
     display: block;
-    float: left;
-    width: 33%;
   }
 
   a {
@@ -47,16 +47,23 @@
   @include float-contain;
 }
 
-.col {
-  float: left;
-  width: 49%;
-
-  + .col {
-    float: right;
+@media (min-width: $page-width) {
+  .wines li {
+    float: left;
+    width: 33%;
   }
 
-  img {
-    display: block;
-    width: 100%;
+  .col {
+    float: left;
+    width: 49%;
+
+    + .col {
+      float: right;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
   }
 }

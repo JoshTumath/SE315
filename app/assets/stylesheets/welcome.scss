@@ -27,7 +27,7 @@ header {
   h1 {
     background: image-url('header-bg.jpg') center no-repeat black;
     background-size: cover;
-    font-size: 3rem;
+    font-size: 1.5rem;
     height: 16rem;
     line-height: 16rem;
     margin: 0;
@@ -38,6 +38,7 @@ header {
     @include float-contain;
 
     background: $primary-color;
+    line-height: 3em;
     margin: auto;
     width: $page-width;
   }
@@ -49,19 +50,22 @@ header {
 
   li {
     display: block;
-    float: left;
 
     + li {
-      border-left: thin solid $content-bg-color;
+      border-top: thin solid $content-bg-color;
     }
   }
 
   a {
     color: inherit;
     display: block;
-    line-height: 2em;
-    padding: 0 2em;
+    padding: 0 1em;
     text-decoration: inherit;
+  }
+
+  form {
+    border-top: thin solid $content-bg-color;
+    padding: 0 1rem;
   }
 }
 
@@ -69,8 +73,8 @@ main,
 footer {
   box-sizing: border-box;
   margin: auto;
+  max-width: $page-width;
   padding: 2rem;
-  width: $page-width;
 }
 
 main {
@@ -80,4 +84,34 @@ main {
 footer {
   background: $primary-color;
   color: white;
+}
+
+@media (min-width: $page-width) {
+  header h1 {
+    font-size: 3rem;
+  }
+
+  nav {
+    line-height: 2em;
+
+    li {
+      float: left;
+
+      + li {
+        border-left: thin solid $content-bg-color;
+        border-top: 0;
+      }
+    }
+
+    a {
+      padding: 0 2em;
+    }
+
+    form {
+      border-left: thin solid $content-bg-color;
+      border-top: 0;
+      float: left;
+      padding: 0 2rem;
+    }
+  }
 }
