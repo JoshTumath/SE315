@@ -25,18 +25,17 @@
             <td><%= wine.title %></td>
             <td><%= quantity %></td>
             <td>£<%= format '%.2f', wine.price %></td>
-            <td>
-              <%= link_to "Delete", basket_destroy_path, method: :delete %>
-            </td>
           </tr>
         <% end %>
       </tbody>
     </table>
+
+    <p><%= link_to "Delete", basket_destroy_path, method: :delete %></p>
+
+    <%= form_for :orders, url: {controller: 'checkout', action: 'create'} do |form| %>
+      <p><%= form.submit 'Checkout' %></p>
+    <% end %>
   <% else %>
     <p>There is nothing in your basket.</p>
-  <% end %>
-
-  <%= form_for :orders, url: {controller: 'checkout', action: 'create'} do |form| %>
-    <p><%= form.submit 'Checkout' %></p>
   <% end %>
 </section>
