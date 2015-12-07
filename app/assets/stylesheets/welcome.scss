@@ -40,7 +40,6 @@ header {
     background: $primary-color;
     line-height: 3em;
     margin: auto;
-    width: $page-width;
   }
 
   ul {
@@ -93,6 +92,7 @@ footer {
 
   nav {
     line-height: 2em;
+    width: $page-width;
 
     li {
       float: left;
