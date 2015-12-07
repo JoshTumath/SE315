@@ -2,7 +2,7 @@
   <h1><%= @wine.title %></h1>
 
   <div class="col">
-    <img src="images/wines/<%= @wine.upc %>.jpg" alt="">
+    <img src="/images/wines/<%= @wine.upc %>.jpg" alt="">
 
     <p>£<%= format '%.2f', @wine.price %></p>
   </div>

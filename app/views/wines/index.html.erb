@@ -7,7 +7,7 @@
     <article>
       <a href="<%= wine_path wine %>">
         <h1><%= wine.title %></h1>
-        <img src="images/wines/<%= wine.upc %>.jpg" alt="">
+        <img src="/images/wines/<%= wine.upc %>.jpg" alt="">
 
         <p class="price">£<%= format "%.2f", wine.price %></p>
         <p><%= wine.size %> ml</p>

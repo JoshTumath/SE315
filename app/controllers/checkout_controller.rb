@@ -30,7 +30,7 @@ class CheckoutController < ApplicationController
 
     # Submit each wine order to the revelant supplier
     orders.each do |order|
-      RestClient.post order[:wine].supplier.url, {
+      RestClient.post "#{order[:wine].supplier.url}orders", {
         name: customer.name,
         address: customer.address,
         email: customer.email,
@@ -38,7 +38,7 @@ class CheckoutController < ApplicationController
         quantity: order[:quantity]
       }.to_json, content_type: :json do |response|
         case response.code
-        when 200
+        when 200, 201
           session[:basket].clear
         else
           #TODO: log an error

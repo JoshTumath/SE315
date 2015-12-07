@@ -18,16 +18,16 @@ class SyncWithSuppliersJob < ActiveJob::Base
   # Request all of the stock of each supplier and return all of the suppliers'
   # wines in an array
   def collate_all_supplier_wines
-    suppliers = []
+    wines = []
 
     Supplier.all.each do |supplier|
       # Contact a supplier to get a list of wines they sell
-      RestClient.get supplier.url, {accept: :json, timeout: 10} do |response|
+      RestClient.get "#{supplier.url}wines", {accept: :json, timeout: 10} do |response|
         case response.code
         when 200
           json = JSON.parse response.body, symbolize_names: true
 
-          suppliers << add_supplier_id_to_wines(supplier.id, json[:data][:wines])
+          wines += add_supplier_id_to_wines(supplier.id, json[:data][:wines])
         else
           #TODO: log an error
           print 'error oh nooooo'
@@ -35,7 +35,7 @@ class SyncWithSuppliersJob < ActiveJob::Base
       end
     end
 
-    suppliers
+    wines
   end
 
   ##
@@ -52,14 +52,15 @@ class SyncWithSuppliersJob < ActiveJob::Base
   # Creates an array of only the cheapest wines. If multiple wines have the same
   # upc, the cheapest one is chosen.
   #
-  # Requires a list of +suppliers+, which each contain a list of their own wines
-  def extract_cheapest_wines(suppliers)
-    suppliers.flatten.inject({}) do |cheapest_wines, wine|
+  # Requires a list of all the +wines+ from all the suppliers
+  def extract_cheapest_wines(wines)
+    wines.inject({}) do |cheapest_wines, wine|
       # Check if this wine is not already in the list, or if it's cheaper than
       # the wine that is already in the list
-      if !cheapest_wines.has_key? wine[:id] or
-      wine[:price] < cheapest_wines[wine[:id]][:price]
-        cheapest_wines[wine[:id]] = wine
+      if !cheapest_wines.has_key? wine[:upc]
+        cheapest_wines[wine[:upc]] = wine
+      elsif wine[:price] < cheapest_wines[wine[:upc]][:price]
+        cheapest_wines[wine[:upc]] = wine
       end
 
       cheapest_wines
@@ -100,7 +101,7 @@ class SyncWithSuppliersJob < ActiveJob::Base
     uri = URI::Data.new(data_uri)
 
     case uri.content_type
-    when 'image/jpeg'
+    when 'image/jpeg', 'image/jpg'
       extension = 'jpg'
     when 'image/png'
       extension = 'png'
@@ -108,6 +109,8 @@ class SyncWithSuppliersJob < ActiveJob::Base
       raise ArgumentError, 'Image type not supported'
     end
 
-    File.write "public/images/wines/#{upc}.#{extension}", 'foo' #uri.data
+    File.open("public/images/wines/#{upc}.#{extension}", 'wb') do |file|
+      file.write(uri.data)
+    end
   end
 end
