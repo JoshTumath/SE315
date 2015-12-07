@@ -109,8 +109,23 @@ class SyncWithSuppliersJob < ActiveJob::Base
       raise ArgumentError, 'Image type not supported'
     end
 
+    create_path_unless_exists "public/images/wines/#{upc}.#{extension}"
+
     File.open("public/images/wines/#{upc}.#{extension}", 'wb') do |file|
       file.write(uri.data)
+    end
+  end
+
+  ##
+  # If the directories to store the number in don't exist, we need to create
+  # them
+  # http://stackoverflow.com/questions/12617152/how-do-i-create-directory-if-none-exists-using-file-class-in-ruby
+  #
+  # +path+ the path to the file
+  def create_path_unless_exists path
+    dirname = File.dirname(path)
+    unless File.directory?(dirname)
+      FileUtils.mkdir_p(dirname)
     end
   end
 end
