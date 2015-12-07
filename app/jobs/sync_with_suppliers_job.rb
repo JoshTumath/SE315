@@ -38,6 +38,9 @@ class SyncWithSuppliersJob < ActiveJob::Base
     suppliers
   end
 
+  ##
+  # Add an additional record to the array of hashes for the wines containing the
+  # supplier's id
   def add_supplier_id_to_wines(supplier_id, wines)
     wines.map do |wine|
       wine[:supplier] = Supplier.find(supplier_id)

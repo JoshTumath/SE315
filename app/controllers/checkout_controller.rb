@@ -7,6 +7,10 @@ class CheckoutController < ApplicationController
     redirect_to basket_index_path
   end
 
+  private
+  ##
+  # Convert the +basket+ from the visitor's session into a hash of an
+  # ActiveRecord of the wine and the quantity being ordered.
   def list_orders(basket)
     basket.inject([]) do |orders, (id, quantity)|
       orders << {
@@ -16,9 +20,15 @@ class CheckoutController < ApplicationController
     end
   end
 
+  ##
+  # Submits the orders to all of the suppliers.
+  #
+  # +customer+ is the ActiveRecord of a Customer
+  # +orders+ is an array of hashes containing the user's orders
   def submit_orders_to_suppliers(customer, orders)
     raise ArgumentError unless customer.is_a? Customer and orders.is_a? Array
 
+    # Submit each wine order to the revelant supplier
     orders.each do |order|
       RestClient.post order[:wine].supplier.url, {
         name: customer.name,
