@@ -8,9 +8,9 @@
 Supplier.create [
   {
     name: 'Borrisons Winaries',
-    url: 'http://joshtumath.uk/supplier1.json'
+    url: 'http://localhost:3001/'
   }, {
     name: 'Lidlainsburys',
-    url: 'http://joshtumath.uk/supplier2.json'
+    url: 'http://localhost:3002/'
   }
 ]
